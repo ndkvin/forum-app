@@ -25,7 +25,6 @@ class _AppDrawerState extends State<AppDrawer> {
     final res = await Provider.of<Auth>(context, listen:false).requestLogout({
       'refreshToken': refreshToken,
     });
-    print(res);
     if (res['status']) {
       Navigator.pushNamed(context, '/login');
     }

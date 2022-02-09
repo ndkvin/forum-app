@@ -38,8 +38,8 @@ class Auth extends ChangeNotifier {
       final accessToken = decodedRes['data']['accessToken'];
       final refreshToken = decodedRes['data']['refreshToken'];
 
-      SecureStorage().saveAccessToken(accessToken);
-      SecureStorage().saveRefreshToken(refreshToken);
+      await SecureStorage().saveAccessToken(accessToken);
+      await SecureStorage().saveRefreshToken(refreshToken);
 
       _isLogedin = true;
       notifyListeners();

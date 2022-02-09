@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     if(res['status']) {
-      print('berhasil');
+      Navigator.pushNamed(context, '/login', arguments: { 'msg': 'Anda berhasil registrasi. Silahkan Login' });
     } else {
       final errMsg = res['errMsg']['message'];
       setState(() {

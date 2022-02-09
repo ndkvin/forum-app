@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'appDrawer.dart';
+import 'flush.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({ Key? key }) : super(key: key);
@@ -15,7 +16,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: const Text('My Profile'),
       ),
-      body: const Text('My Profile'),
+      body: Builder(
+
+        builder: (scafoldContext) {
+          showFlushMsg(context, scafoldContext);
+          return const Text(
+            'My Profile'
+          );
+        }
+      ),
       drawer: const AppDrawer(),
     );
   }

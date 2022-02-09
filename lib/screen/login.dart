@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'appDrawer.dart';
+import 'flush.dart';
 import '../api/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if(res['status']) {
-      Navigator.pushNamed(context, '/profile');
+      Navigator.pushNamed(context, '/profile', arguments: { 'msg': 'Login Success' });
     } else {
       final errMsg = res['errMsg']['message'];
       setState(() {
@@ -49,37 +50,42 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Column(
-        children: [
-          TextFormField(
-            controller: _usernameCtrl,
-            decoration: const InputDecoration(
-              hintText: 'Username',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          TextFormField(
-            controller: _passwordCtrl,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: 'Password',
-              border: OutlineInputBorder(),
-            ),
-          ),
-          Visibility(
-            child: Text('$_errMsg'),
-            visible: _err,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              child: const Text('Login'),
-              onPressed: () => submitLogin(),
-            ),
-          )
-          ,
-        ]
-      ),
+      body: Builder(
+        builder: (scafoldContext) {
+          showFlushMsg(context, scafoldContext);
+          return Column(
+            children: [
+              TextFormField(
+                controller: _usernameCtrl,
+                decoration: const InputDecoration(
+                  hintText: 'Username',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              TextFormField(
+                controller: _passwordCtrl,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              Visibility(
+                child: Text('$_errMsg'),
+                visible: _err,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  child: const Text('Login'),
+                  onPressed: () => submitLogin(),
+                ),
+              )
+              ,
+            ]
+          );
+        },
+      ), 
       drawer: const AppDrawer(),
     );
   }
